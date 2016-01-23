@@ -1,0 +1,161 @@
+Realizar imagenes con CPU Governance
+Deshabilitando opciones AMD
+
+1. Defecto
+	.config simple
+2. 32 bits
+	low latency
+
+3. Deshabilitar opciones para AMD
+	Seleccionar un governor
+		PC --> Performance
+		Lap --> PowerSave
+	low latency
+	linux logo  *Device Drivers --> Graphics support --> Bootup Logo
+/*/*/ Subir los .config
+/*/*/ Intercambiar las imagenes empaquetadas rpm 
+4. Deshabilitar opciones que no son para la arquitectura AMD
+	Governor -- Performance
+	Tickless -- Seleccionar IDLE
+	NO Premptible -- Servers
+
+
+*******************************************************************************************************************************
+sudo dnf install fedpkg fedora-packager rpmdevtools pesign libXi-devel gcc-c++
+
+sudo dnf builddep kernel
+
+
+Interfaces graficas::
+gconfig GTK
+dnf install glib2.x86_64 glib2-devel.x86_64 libglade2-devel.x86_64
+
+
+ncurses
+sudo dnf install ncurses-devel
+
+QT5
+sudo dnf install qt5-qtbase-devel.x86_64 qt5-qtconfiguration-devel.x86_64
+
+*******************************************************************************************************************************
+
+PATCHING
+
+convencional --- diff
+usando Git
+
+diff -u ViejoArchivo NuevoArchivo > cambios.patch
+
+RT real time
+BFQ
+Grsecurity
+.../+
+
+archivo de texto que contiene la delta de cambio entre 1 versines de kernel
+
+patch < parche#
+
+patch -R < parche#
+
+
+
+
+
+------------------------------------------------------------------------------------------------------------------------------------------0
+------------------------------------------------------------------------------------------------------------------------------------------0
+------------------------------------------------------------------------------------------------------------------------------------------0
+------------------------------------------------------------------------------------------------------------------------------------------0
+------------------------------------------------------------------------------------------------------------------------------------------0
+
+
+
+
+
+Llamadas al sistema
+(Assembler-Semantica 32 bits)
+
+Se emplea la instrucción int 0x80
+Se transfiere el control a manejadr de llamadas al sistema en el kernel
+Cuando la llamada se ha ejecutado, la ejecución es transferida de regreso al punto inmediato desues de a instruccin int
+
+En el registro eax se coloca el valor del numero de llamada a invocar.
+/usr/include/asm/unistd.h	<-- están los valores para las llamadas al sistema
+
+Codificaria una secuencia de instrucciones como:
+Espacio de usuario			movl	$1, %eax
+Espacio de kernel			int	0x80
+Retorno					movl	alfa,%edx
+
+#define _NR_exit 1
+
+Si la llamada al sistema tiene parametros
+%ebx
+%ecx
+%edx
+%esi
+%edi
+
+Si tengo seis o más parámetros en %ebx pongo un apuntador a la zona de memoria
+
+ssize_t = write(int fd, const void *buf, size_t count);
+
+%ebx <-- fd
+%ecx <-- buf Apuntador
+%edx <-- count
+
+
+movl write,%eax
+movl fd,%ebx
+movl buf,%ecx
+movl count,%edx
+int 0x80
+
+.section .data
+output: .ascii "Este es un mensaje de prueba\n"
+len: .int 30
+
+.section .text
+.globl _start
+
+_start:	movl $4,%eax
+	movl $1,%ebx
+	movl $outut,%ecx
+	movl len,%edx
+	int $0x80
+	movl $1,%eax
+	movl	$0,%ebx	<-- salida exitosa
+	int $0x08
+	
+
+
+*****Para ensamblar 
+
+$ as -o pruebasyscall.o pruebasyscall.s
+$ ld -o pruebasyscall pruebasyscall.o
+
+pruebasyscal <<-- archivo ejecutable ELF
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
