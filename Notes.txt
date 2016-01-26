@@ -1,3 +1,228 @@
+Se pueden descargar
+ORACLE Solaris
+Minix
+Free BSD
+
+
+Se requieren licencias.
+AIX
+
+HACKING TOSH
+
+
+UDEF <--- Reconocimiento de devices
+
+
+Realtek
+-reglas udef cada vez que encontrara con cierto path levantara
+
+
+Desglosando componentes del kernel
+	Manejo de procesos
+	Manejo de memoria
+	Sistemas de archivos
+	Dispositivos
+	Red
+
+5. Otros temas
+	Cgroups
+	Namespaces
+	Devfs
+	Udev
+	Kmod
+	Kdbus
+	Seguridad
+
+
+Grupos de procesos = Job
+
+Debian Hurd
+Debian Kfree BSD
+
+Linux como GNU
+
+API/AVI
+
+
+Slaps
+software GNU / Hurd
+No depende del nucleo, sólo las dependencias de las librerías de construcción
+
+Tipos de opciones:
+M modulo / dinámicas
+asterisco / estatico
+entero
+string
+booleano
+
+/boot/config-4.3.3-300.fc23.x86_64
+difieren ya que cada distro usan kernes parchados, los kernels difieren
+una distro es diferente por la ideología
+
+¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡
+Comandos de construcción
+¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡
+make			<--- genera todo el codigo
+make istall		<--- realiza la instalacion en el sistema
+make modules_install	<--- 
+
+
+make clean		<---
+make mrproper		<---
+make distclean		<--- 
+
+make allnoconfig	<---
+make allyesconfig	<--- Selecciona los estaticos (*)
+make allmodconfig	<--- 
+
+************************************************************************************
+Proceso de inicializacion
+VMLinus	<-- statica
+InitRAM <-- dinámica
+************************************************************************************
+
+*Se requieren las librerías de construcción
+make htmldocs		<--
+make pdfdocs		<--
+make mandocs		<--
+make cleandocs		<--
+
+
+make i386_defconfig
+[intel@localhost linux-libre-4.4-gnu]$ make i386_defconfig
+#
+# configuration written to .config
+#
+[intel@localhost linux-libre-4.4-gnu]$ 
+
+make x86_64_defconfig
+
+
+make -V=0		<-- construcción normal
+make -V=1		<-- construcción detallada
+
+make -j 5 		<-- para especificar el numero de cores (+1) del procesador | permite el uso de threads y agilizar la compilación
+make -j 2
+xeon  			<--set de instrucciones tiene instruccines para acortar tiempo de ejecucion, tiene cores físicos
+
+
+
+cache compiler		<-- los objets de construccion los mantiene en una area de memoria especial
+distributed compiler	<-- reparte la compilación entre diferentes maquinas, requiere de un filesystem de red (nfs)
+
+
+
+*****************************************
+make 
+make tinyconfig		<-- realiza la configuracion basica y minima para arranque
+make config		<-- Interfaz de texto, similar al make nconfig, make xconfig
+
+
+
+
+
+
+??????????????????
+binario stripe 
+binario no stripe
+??????????????????
+
+
+vimdiff .config /boot/config-4.3.3-300.fc23.x86_64
+make menuconfig
+
+
+
+--------------------------------------------------------------------------------------------------------------
+make			<-- construcción del código objeto
+make modules_install	<-- 
+make install		<--
+
+
+
+
+
+
+======================================================================================================================================0
+======================================================================================================================================0
+======================================================================================================================================0
+======================================================================================================================================0
+======================================================================================================================================0
+======================================================================================================================================0
+======================================================================================================================================0
+20/01/2016
+
+
+
+Virtualizacion
+
+bsadas n Memory balloon
+
+kconfig		<-- archivo donde se definen las configuraciones
+
+
+
+
+systemmap	<-- archivo para kernel developers
+
+
+-------------------------------------------------------------------------------------------------------------------------------------------------
+
+root@localhost linux-libre-4.4-gnu]# history | tail -40
+  135  dnf search zib
+  136  dnf search zlib
+  137  dnf install zlib.i686 libstdc++.i686 ncurses-libs.i686 libgcc.i686
+  138  cd Doc
+  139  ls
+  140  pwd
+  141  exit
+  142  dnf install zlib.i686 libstdc++.i686 ncurses-libs-5.9-18.20150214.fc22.x86_64
+  143  dnf install zlibi686 libstdc++.i686 ncurses-libs.i686 libgcc.i686
+  144  dnf search glibc
+  145  dnf install glibc-devel.i686 libgcc.i686
+  146  exit
+  147  dnf install ddd.x86_64
+  148  exit
+  149  dnf upgrade
+  150  stat
+  151  dnf upgrade
+  152  exit
+  153  dnf update
+  154  dnf upgrade
+  155  dnf install dnf-plugin-system-upgrade
+  156  dnf system-upgrade download --releasever=23
+  157  dnf system-upgrade download --releasever=23 --allowerasing
+  158  dnf clean packages
+  159  dnf system-upgrade download --releasever=23 --allowerasing
+  160  dnf system-upgrade reboot
+  161  dnf search ncurses
+  162  dnf install ncurses-libs.x86_64
+  163  dnf install ncurses-devel.x86_64
+  164  exit
+  165  dnf search openssl/opensslv.h
+  166  dnf search openssl
+  167  dnf install openssl.x86_64
+  168  dnf install openssl-devel.x86_64
+  169  exit
+  170  make install
+  171  exit
+  172  make modules_install
+  173  history | tail -20
+  174  history | tail -40
+[root@localhost linux-libre-4.4-gnu]# 
+
+
+
+______________________________________________________________________________________________________________________________-0
+______________________________________________________________________________________________________________________________-0
+______________________________________________________________________________________________________________________________-0
+______________________________________________________________________________________________________________________________-0
+______________________________________________________________________________________________________________________________-0
+______________________________________________________________________________________________________________________________-0
+______________________________________________________________________________________________________________________________-0
+______________________________________________________________________________________________________________________________-0
+
+
 Realizar imagenes con CPU Governance
 Deshabilitando opciones AMD
 
@@ -58,87 +283,32 @@ patch < parche#
 patch -R < parche#
 
 
-
-
-
-------------------------------------------------------------------------------------------------------------------------------------------0
-------------------------------------------------------------------------------------------------------------------------------------------0
-------------------------------------------------------------------------------------------------------------------------------------------0
-------------------------------------------------------------------------------------------------------------------------------------------0
-------------------------------------------------------------------------------------------------------------------------------------------0
-
-
-
-
-
-Llamadas al sistema
-(Assembler-Semantica 32 bits)
-
-Se emplea la instrucción int 0x80
-Se transfiere el control a manejadr de llamadas al sistema en el kernel
-Cuando la llamada se ha ejecutado, la ejecución es transferida de regreso al punto inmediato desues de a instruccin int
-
-En el registro eax se coloca el valor del numero de llamada a invocar.
-/usr/include/asm/unistd.h	<-- están los valores para las llamadas al sistema
-
-Codificaria una secuencia de instrucciones como:
-Espacio de usuario			movl	$1, %eax
-Espacio de kernel			int	0x80
-Retorno					movl	alfa,%edx
-
-#define _NR_exit 1
-
-Si la llamada al sistema tiene parametros
-%ebx
-%ecx
-%edx
-%esi
-%edi
-
-Si tengo seis o más parámetros en %ebx pongo un apuntador a la zona de memoria
-
-ssize_t = write(int fd, const void *buf, size_t count);
-
-%ebx <-- fd
-%ecx <-- buf Apuntador
-%edx <-- count
-
-
-movl write,%eax
-movl fd,%ebx
-movl buf,%ecx
-movl count,%edx
-int 0x80
-
-.section .data
-output: .ascii "Este es un mensaje de prueba\n"
-len: .int 30
-
-.section .text
-.globl _start
-
-_start:	movl $4,%eax
-	movl $1,%ebx
-	movl $outut,%ecx
-	movl len,%edx
-	int $0x80
-	movl $1,%eax
-	movl	$0,%ebx	<-- salida exitosa
-	int $0x08
-	
-
-
-*****Para ensamblar 
-
-$ as -o pruebasyscall.o pruebasyscall.s
-$ ld -o pruebasyscall pruebasyscall.o
-
-pruebasyscal <<-- archivo ejecutable ELF
+======================================================================================================================================0
+======================================================================================================================================0
+======================================================================================================================================0
+======================================================================================================================================0
+======================================================================================================================================0
+======================================================================================================================================0
+======================================================================================================================================0
 
 
 
 
 
+
+arch/x86/image.iso
+
+customroom
+
+
+https://www.freebsd.org/
+http://www.minix3.org/
+http://www.openbsd.org/
+https://smartos.org/
+hackintosh
+
+
+lspsi -vv
 
 
 

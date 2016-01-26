@@ -1,0 +1,208 @@
+
+======================================================================================================================================0
+======================================================================================================================================0
+======================================================================================================================================0
+======================================================================================================================================0
+======================================================================================================================================0
+======================================================================================================================================0
+======================================================================================================================================0
+
+procesos		fork
+threads			pthreads
+planificación		schedulers
+signals			señales
+llamadas al sistema	
+
+FIFOS
+IPC			Intercomunicación de procesos
+Shared Memory
+Semaforos
+
+
+PCB	<--	Process Control Block
+|
+v
+struct task_struct		task_struct <-- threads
+struct task_struct
+struct task_struct
+struct task_struct
+struct task_struct	<-- proceso descriptor
+
+
+Proceso Unix
+	1 hilo de ejecución
+/-----------------\
+program counter
+stack
+registros
+
+
+fork()
+espaci de dir
+recursos
+texto
+datos
+stack
+--------------
+Prceso padre
+
+esacio de direcciones
+...
+...
+...
+--------------
+proceso hijo
+
+
+
+
+http://fcasua.contad.unam.mx/apuntes/interiores/docs/98/4/informatica_4.pdf
+TAREA 1 reaizar el árbol de procesos
+
+     0				0
+   / | \			|
+  0  0  0			0
+				|
+				0
+
+
+
+task_struct
+thread_info
+---------------------------------------------------------------------------------------------------------
+---------------------------------------------------------------------------------------------------------
+---------------------------------------------------------------------------------------------------------
+---------------------------------------------------------------------------------------------------------
+---------------------------------------------------------------------------------------------------------
+
+
+--> Llamadas al sistema   fork()
+malloc() --> brk() sbrk()
+		system call
+
+hlt
+
+halt processor
+
+1. File system
+2. Process Scheduler
+3. Inter Process Communicator
+4. Network Protocols/Services (TCP/IP) Sockets
+5. Varios / Miscelanous
+
+
+Eventos
+Eventos Asincronos
+
+
+SIGQUIT  Keyboard Quit
+SIGBUS Bus Error
+SIGKILL Kill signal
+SIGSEGV Segmentation Viation
+
+
+
+------------------------------------------------------------------------------------------------------------------------------------------0
+------------------------------------------------------------------------------------------------------------------------------------------0
+------------------------------------------------------------------------------------------------------------------------------------------0
+------------------------------------------------------------------------------------------------------------------------------------------0
+------------------------------------------------------------------------------------------------------------------------------------------0
+
+
+
+
+
+Llamadas al sistema
+(Assembler-Semantica 32 bits)
+
+Se emplea la instrucción int 0x80
+Se transfiere el control a manejadr de llamadas al sistema en el kernel
+Cuando la llamada se ha ejecutado, la ejecución es transferida de regreso al punto inmediato desues de a instruccin int
+
+En el registro eax se coloca el valor del numero de llamada a invocar.
+/usr/include/asm/unistd.h	<-- están los valores para las llamadas al sistema
+less /usr/include/asm/unistd_32.h
+
+Codificaria una secuencia de instrucciones como:
+Espacio de usuario			movl	$1, %eax
+Espacio de kernel			int	0x80
+Retorno					movl	alfa,%edx
+
+#define _NR_exit 1
+
+Si la llamada al sistema tiene parametros
+%ebx
+%ecx
+%edx
+%esi
+%edi
+
+Si tengo seis o más parámetros en %ebx pongo un apuntador a la zona de memoria
+
+ssize_t = write(int fd, const void *buf, size_t count);
+
+%ebx <-- fd
+%ecx <-- buf Apuntador
+%edx <-- count
+
+
+movl write,%eax
+movl fd,%ebx
+movl buf,%ecx
+movl count,%edx
+int 0x80
+
+.section .data
+output: .ascii "Este es un mensaje de prueba\n"
+len: .int 30
+
+.section .text
+.globl _start
+
+_start:	movl $4,%eax
+	movl $1,%ebx
+	movl $outut,%ecx
+	movl len,%edx
+	int $0x80
+	movl $1,%eax
+	movl	$0,%ebx	<-- salida exitosa
+	int $0x08
+	
+
+
+*****Para ensamblar 
+
+$ as -o pruebasyscall.o pruebasyscall.s
+$ ld -o pruebasyscall pruebasyscall.o
+
+pruebasyscal <<-- archivo ejecutable ELF
+
+
+$ as -o pruebasyscall.o pruebasyscall.s
+$ ld -dynamic-linker /lib/ld-linux.so.2 -lc -o pruebasyscall pruebasyscall.o
+
+************************
+
+
+
+
+
+.section .bss
+.lcomm rem, 8
+.section .text
+.global
+
+
+<sys/sysinfo>
+
+struct sysinfo{
+4 --> long uptime;
+unsigned long loads[3];
+unsigned long total ram;
+
+...
+}
+
+
+
+
