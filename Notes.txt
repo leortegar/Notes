@@ -311,6 +311,45 @@ hackintosh
 lspsi -vv
 
 
+Estructura de datos para memoria y estructura de archivos
+
+
+
+Operaciones transaccionales
+\_*ACID
+
+remover imagenes****************************
+
+dnf list
+
+dnf list kernel
+
+
+rpm -qa | grep kernel
+
+modules
+core
+devel
+
+sudo dnf remove 
+
+
+sudo grub2-mkconfig -o /boot/grub2/grub.cfg
+
+
+********************
+Crear el paquete
+make binrpm-pḱg
+
+
+********************
+dpkg -l 
+
+
+
+
+
+cgroups
 
 
 
@@ -320,7 +359,202 @@ lspsi -vv
 
 
 
-
+root@localhost linux]# history
+    1  dnf update
+    2  ip a
+    3  ip l s enp1s0 up
+    4  ip a
+    5  ip l s enp1s0 down
+    6  ip l s enp1s0 up
+    7  i a
+    8  ip a
+    9  dhclient enp1s0
+   10  ip a
+   11  ping 8.8.8.8
+   12  nmtui
+   13  ip a
+   14  nmtui
+   15  ip a
+   16  systemctl restart network
+   17  ip a
+   18  nmtu
+   19  nmtui
+   20  ip a
+   21  iconfig
+   22  cear
+   23  clear
+   24  nmtui
+   25  clear
+   26  dnf
+   27  clear
+   28  ls
+   29  clear
+   30  i a
+   31  rebot
+   32  reboot
+   33  dnf install git
+   34  uname -a
+   35  hostname
+   36  git clone https://github.com/IntelBUAP/GuiaDeInterfazHumana.git
+   37  exit
+   38  ls
+   39  ls -lrt
+   40  rm -r GuiaDeInterfazHumana/
+   41  clear
+   42  exit
+   43  dnf install python3-bpython.noarch
+   44  dnf seach ninja-IDE
+   45  dnf search ninja-IDE
+   46  clear
+   47  dnf install ninja-IDE
+   48  dnf install ninja-ide
+   49  exit
+   50  dnf install fash
+   51  dnf install flash
+   52  dnf install aobe
+   53  dnf install adbe
+   54  dnf install adobe
+   55  rpm -ivh http://linuxdownload.adobe.com/adobe-release/adobe-release-x86_64-1.0-1.noarch.rpm
+   56  rpm --import /etc/pki/rpm-gpg/RPM-GPG-KEY-adobe-linux
+   57  dnf install flash-plugin nspluginwrapper alsa-plugins-pulseaudio libcurl
+   58  cat << EOF > /etc/yum.repos.d/google-chrome.repo
+   59  [google-chrome]
+   60  name=google-chrome - \$basearch
+   61  baseurl=http://dl.google.com/linux/chrome/rpm/stable/\$basearch
+   62  enabled=1
+   63  gpgcheck=1
+   64  gpgkey=https://dl-ssl.google.com/linux/linux_signing_key.pub
+   65  EOF
+   66  dnf install google-chrome-stable
+   67  ls /etc/yum.repos.d/google-chrome.repo 
+   68  cat /etc/yum.repos.d/google-chrome.repo 
+   69  dnf install updtae
+   70  dnf update
+   71  dnf install google-chrome-stable
+   72  cat << EOF > /etc/yum.repos.d/google-chrome.repo
+   73  [google-chrome]
+   74  name=google-chrome - \$basearch
+   75  baseurl=http://dl.google.com/linux/chrome/rpm/stable/\$basearch
+   76  enabled=1
+   77  gpgcheck=1
+   78  gpgkey=https://dl-ssl.google.com/linux/linux_signing_key.pub
+   79  EOF
+   80  dnf install google-chrome-stable
+   81  cat << EOF > /etc/yum.repos.d/google-chrome.repo
+   82  [google-chrome]
+   83  name=google-chrome - \$basearch
+   84  baseurl=http://dl.google.com/linux/chrome/rpm/stable/\$basearch
+   85  enabled=1
+   86  gpgcheck=1
+   87  gpgkey=https://dl-ssl.google.com/linux/linux_signing_key.pub
+   88  EOF
+   89  dnf install google-chrome-stable
+   90  dnf install bpython
+   91  exit
+   92  dnf install @development-tools
+   93  dnf install gettext
+   94  dnf install @development-tools
+   95  exit
+   96  dnf install @development-tools
+   97  exit
+   98  #cat << EOF > /etc/yum.repos.d/google-chrome.repo >> comandos.txt 
+   99  cat comandos.txt 
+  100  echo "dnf install gettext" >> comandos.txt 
+  101  echo "dnf install @development-tools" >> comandos.txt 
+  102  echo "dnf install google-chrome-stable" >> comandos.txt
+  103  exit
+  104  history >> rootHistory.txt
+  105  ls
+  106  ls -l
+  107  exit
+  108  dnf install inkscape
+  109  dnf instal rar
+  110  dnf install rar
+  111  dnf install winrar
+  112  dnf install unrar
+  113   dnf install --nogpgcheck http://download1.rpmfusion.org/free/fedora/rpmfusion-free-release-$(rpm -E %fedora).noarch.rpm http://download1.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-$(rpm -E %fedora).noarch.rpm
+  114  dnf install unrar
+  115  wget http://cmas.siu.buap.mx/portal_pprd/imagenes/recursos_graficos/escudo_logotipo/Escudo_y_Logotipo_Color_Positivo_PNG.rar
+  116  ls
+  117  man unrar
+  118  unrar e Escudo_y_Logotipo_Color_Positivo_PNG.rar
+  119  ls
+  120  exit
+  121  dnf install autotool automake 
+  122  dnf install autotools
+  123  dnf install automake
+  124  dnf install libtool
+  125  exit
+  126  dnf search gnome-boxes
+  127  exit
+  128  dnf search gcc-multilib libc6-i386 lib6-dev-i386
+  129  dnf search gcc-multilib
+  130  dnf search libc6-i386 lib6-dev-i386
+  131  dnf search lib6-dev-i386
+  132  dnf search gcc
+  133  dnf install zlibi686 libstdc++.i686 ncurseslibs.i686 libgcc.i686
+  134  dnf install zlibi686 libstdc++.i686 ncurses-libs.i686 libgcc.i686
+  135  dnf search zib
+  136  dnf search zlib
+  137  dnf install zlib.i686 libstdc++.i686 ncurses-libs.i686 libgcc.i686
+  138  cd Doc
+  139  ls
+  140  pwd
+  141  exit
+  142  dnf install zlib.i686 libstdc++.i686 ncurses-libs-5.9-18.20150214.fc22.x86_64
+  143  dnf install zlibi686 libstdc++.i686 ncurses-libs.i686 libgcc.i686
+  144  dnf search glibc
+  145  dnf install glibc-devel.i686 libgcc.i686
+  146  exit
+  147  dnf install ddd.x86_64
+  148  exit
+  149  dnf upgrade
+  150  stat
+  151  dnf upgrade
+  152  exit
+  153  dnf update
+  154  dnf upgrade
+  155  dnf install dnf-plugin-system-upgrade
+  156  dnf system-upgrade download --releasever=23
+  157  dnf system-upgrade download --releasever=23 --allowerasing
+  158  dnf clean packages
+  159  dnf system-upgrade download --releasever=23 --allowerasing
+  160  dnf system-upgrade reboot
+  161  dnf search ncurses
+  162  dnf install ncurses-libs.x86_64
+  163  dnf install ncurses-devel.x86_64
+  164  exit
+  165  dnf search openssl/opensslv.h
+  166  dnf search openssl
+  167  dnf install openssl.x86_64
+  168  dnf install openssl-devel.x86_64
+  169  exit
+  170  make install
+  171  exit
+  172  make modules_install
+  173  history | tail -20
+  174  history | tail -40
+  175  make install
+  176  exit
+  177  grub2-mkconfig
+  178  grub2-mkconfig > /boot/grub2/grub.cfg
+  179  make modules_install
+  180  make install
+  181  grub2-mkconfig
+  182  uname -a
+  183  grub2-mkconfig > /boot/grub2/grub.cfg
+  184  exit
+  185  dnf install fedpkg fedora-packager rpmdevtools pesign libXi-devel gcc-c++
+  186  dnf builddep kernel
+  187  exit
+  188  dnf update kernel
+  189  ext
+  190  exit
+  191  dnf remove kernel-debug-devel-4.2.3-200.fc22.x86_64 kernel-modules-4.2.8-200.fc22.x86_64 kernel-4.2.8-200.fc22.x86_64 kernel-debug-devel-4.2.8-200.fc22.x86_64 kernel-core-4.2.8-200.fc22.x86_64
+  192  rpm -qa | grep kernel
+  193  grub2-mkconfig -o /boot/grub2/grub.cfg
+  194  history
+[root@localhost linux]# 
 
 
 
