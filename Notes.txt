@@ -558,8 +558,34 @@ root@localhost linux]# history
 
 
 
+-------------------------------------------------------
+
+pkg search gnome3
+pkg install gnome3
+pkg search xorg
+pgk install xorg 
 
 
 
+sysctl 
 
+
+/
+/bin
+/boot
+/dev
+/etc
+/home -> /usr/home
+/lib
+/libexec
+/media
+/mnt
+/proc
+/rescue
+/root
+/sbin
+/sys -> /usr/src/sys
+/tmp
+/usr
+/var
 
