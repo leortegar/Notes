@@ -208,10 +208,21 @@ unsigned long total ram;
 
 ************************
 27012016
-Advanced Prgramming Unix Enviroment
+Advanced Prgramming in the Unix Enviroment
 
-Stevens
+W. Richard Stevens
+Stephen A. Raigo
 
 ************************
+
+
+
+Transportabilidad (Recompilar)
+     |
+     v
+  Estandar
+     |
+     v
+   POSIX
 
 
