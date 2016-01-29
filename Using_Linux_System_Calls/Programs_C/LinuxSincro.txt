@@ -1,0 +1,150 @@
+BARRERAS DE MEMORIA
+
+Cuando se utilizan compiladores con funciones de optimización, nunca debería darse
+por supuesto que las instrucciones serán ejecutadas en el orden exacto en el que aparecen en
+el código fuente.
+Un compilador podría reordenar las instrucciones ensamblador para
+optimizar el uso de los registros, o podrían reordenarse los accesos a memoria en el caso de
+las CPUs superescalares.
+Sin embargo, a los efectos de la sincronización, la reordenación debería evitarse. Sería
+un problema que una instrucción ubicada despues de una primitiva de sincronización se
+ejecutada antes de la primitiva misma.
+Una barrera de memoria asegura que las operaciones colocadas antes de la primitiva
+sean terminadas antes de comenzar las operaciones colocadas despues de la primitiva.
+En procesadores 80x86 los siguientes tipos de de instrucciones son llamados serializadores ya
+que actuan como barreras de memoria:
+
+• Instrucciones que operan en puertos I/O
+• Instrucciones precedidas por el byte lock
+• Instrucciones que escriben en registros de control, registros de sistema o registros de
+depuración (por ejemplo, cli y sti).
+• Algunas instrucciones especiales (por ejemplo iret).
+
+Linux usa seis primitivas mostradas en la siguiente tabla. Las barreras de memoria de
+Lectura actúan sólo en instrucciones que leen de la memoria, mientras que las barreras de
+memoria de Escritura actúan en aquellas instrucciones que escriben en memoria.
+
+Macro		 Descripción
+mb( )		 Barrera de memoria para P y MP
+rmb( ) 		 Barrera de memoria de lectura para P y MP
+wmb( )		 Barrera de memoria de escritura para P y MP
+smp_mb( )	 Barrera de memoria sólo para MP
+smp_rmb( )	 Barrera de memoria de lectura sólo para MP
+smp_wmb( )	 Barrera de memoria de escritura sólo para MP
+
+P = Monoprocesador
+MP = MultiProcesador
+
+Debe notarse que en los sistemas multiprocesadores, todas las operaciones atómicas
+descriptas en la sección anterior actúan como barreras de memoria porque usan el byte lock.
+
+SPINLOCKS
+
+Los spinlocks son tipos especiales de locks diseñados para trabajar en entornos
+multiprocesador. Si el KCP encuentra el lock abierto, lo toma y continua su ejecución. Por el
+contrario, si el KCP encuentra el lock cerrado, se queda ejecutando un bucle hasta que el lock
+es liberado. Aunque representan una “busy wait”, generalmente los spinlocks son
+convenientes ya que muchos recursos del kernel son bloqueados por sólo una fracción de
+milisegundo y consumiría más tiempo que un proceso esperando por uno de esos recursos
+ceda la CPU y tenga que conseguirla más tarde.
+Por supuesto, los spinlocks no sirven en un sistema monoprocesador, ya que el KCP que
+espera seguirá ejecutandose y el KCP que mantiene el lock no tendrá oportunidad de liberarlo.
+En Linux, un spinlock se representa por una estructura spinlock_t, que consiste en un
+único campo lock. El valor 1 corresponde a un estado liberado, mientras que cualquier valor
+igual o menor a cero indica un estado de cerrado.
+Las cinco funciones mostradas en la siguiente tabla son utilizadas para incializar,
+testear y setear los spinlocks. En sistemas monoprocesador, ninguna de estas funciones hace
+algo, excepto spin_trylock(), que siempre devuelve 1. Todas estas funciones se basan en
+operaciones atomicas; esto asegura que el acceso concurrente a la estructura se hará
+correctamente.
+
+Función Descripción
+
+spin_lock_init( )	 Inicializa y setea el spinlock a 1 (no bloqueado)
+spin_lock( )		 Espera hasta que el spinlock sea 1, luego lo setea a 0 (bloqueado).
+spin_unlock( )		 Setea el spinlock a 1.
+spin_unlock_wait( )	 Espera hasta que el spinlock sea 1
+spin_is_locked( )	 Retorna 0 si el spinlock está seteado a 1, de lo contrario retorna 1.
+spin_trylock( )          Si está desbloqueado, setea el spinlock a 0 y retorna 1, de lo contrario retorna 0
+
+
+
+Spinlocks de Lectura/Escritura
+
+
+Los Spinlocks Lectura/Escritura fueron introducidos para incrementar la concurrencia
+en el kernel. Permiten que varios KCP lean simultáneamente la misma estructura de datos,
+siempre que ninguno la modifique. Si un KCP desea escribir en la estructura debe tomar la
+versión de Escritura del lock, la cual brinda acceso exclusivo al recurso.
+Cada spinlock de este tipo es una estructura rwlock_t. Su campo lock es de 32 bits y codifica
+dos datos:
+
+• Un contador de 24 bits que indica la cantidad de KCP leyendo la estructura (en
+complemento a 2).
+• Un flag “unlock” que se desactiva cuando algun KCP esta leyendo o escribiendo la
+estructura.
+
+Por lo tanto el campo lock almacena el número 0x01000000 si el spin lock está
+liberado, el número 0x00000000 si fue tomado por un escritor y cualquier número en el rango
+0x00ffffff – 0x00000001 dependiendo de la cantidad de lectores.
+
+La macro rwlock_init inicicaliza el campo lock a 0x01000000 (desbloqueado). La macro
+read_lock atómicamente decremente el spin lock en 1, incrementando el número de lectores si
+se puede, o espera. La macro read_unlock simplemente incrementa el campo lock.
+La macro write_lock intenta tomar el lock para Escritura y write_unlock lo libera
+
+
+Completions.
+
+Las "Completions" (terminaciones) fueron introducidos en la versión 2.4.7 del kernel,
+para solucionar una condición de carrera bastante sutil que ocurre en sistemas
+multiprocesador cuando se suceden los siguientes eventos:
+
+● Un proceso A aloca un semáforo temporal y lo inicializa como un "close
+MUTEX", le pasa su dirección a otro proceso B y llama a down ( ) sobre
+éste semáforo.
+● Luego, el proceso B corriendo en una CPU diferente invoca a up( ) sobre el
+mismo semáforo.
+
+La implementación actual de up( ) y down( ) permite que se ejecuten en
+concurrentemente sobre el mismo semáforo. Por lo tanto el proceso A puede ser despertado y
+destruir el semáforo temporal mientras el proceso B todavía se encuentra ejecutando la
+función up(). Como resultado, up() podría intentar acceder a una estructura de datos que no
+existe más.
+Una solución posible a éste problema es modificar la implementación de down() y up()
+para prohibir las ejecuciones concurrentes sobre el mismo semáforo. Sin embargo, éste
+cambio requeriría instrucciones adicionales, algo que se intenta evitar en éste tipo de
+funciones que son tan frecuentemente utilizadas.
+Las Completions son primitivas de sincronización específicamente diseñadas para
+resolver este problema. La estructura de datos completion incluye una cola de espera y un
+flag:
+
+
+struct completion {
+   unsigned int done;
+   wait_queue_head_t wait;
+};
+
+Trabajar con completions requiere una creación e inicialización estática:
+DECLARE_COMPLETION(my_comp);
+O la declaración de una variable automática (o dinámica) y su inicialización:
+
+struct completion my_comp;
+init_completion(&my_comp);
+
+La función análoga al up() de los semáforos se denomina complete(). Recibe como
+argumento la dirección de una estructura completion, setea el flag done a 1 e invoca a
+wake_up() para despertar a un proceso exclusivo durmiendo en la cola de espera. La función
+complete_all() despertará a todos los procesos durmiendo en la cola de espera.
+
+La función correspondiente a down() se llama wait_for_completion(). Recibe la
+dirección de una estructura completion y verifica el valor del flag done. Si está seteado a 1, la
+función termina porque complete() ya fue ejecutada en otra CPU. En otro caso,
+wait_for_completion() pone a dormir al proceso current en el estado
+TASK_UNINTERRUPTIBLE. Una vez despertado, la función quita al proceso current de la cola
+de espera, setea done a 0 y termina.
+
+La diferencia real entre las completions y los semáforos es la forma de utilizar el spin lock
+incluido en la cola de espera. Las funciones complete() y wait_for_completion() lo usan para
+asegurarse de que no puedan ejecutarse concurrentemente, mientras que up() y down() lo
+usan sólo para serializar accesos a la cola de espera.
