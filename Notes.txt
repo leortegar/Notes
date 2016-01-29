@@ -589,3 +589,136 @@ sysctl
 /usr
 /var
 
+
+
+ejecuciń sincrona
+asincrona
+
+cambios de contexto
+
+código reentrante
+
+paginación en memoria secundaria
+
+swapping
+
+
+Procesos con nivel de ejecucion:
+	* Modo usuario 
+	* Modo kernel
+		trap
+
+Kernel recide en memoria
+
+interrupciones :: señales electricas
+
+contexto
+
+excepciones
+
+
+
+
+-------------------------------------------------------------------------------------------------
+gunzip 
+https://www.kernel.org/pub/linux/kernel/v4.x/
+
+https://rt.wiki.kernel.org/index.php/Main_Page
+https://www.kernel.org/pub/linux/kernel/projects/rt/4.1/
+
+
+
+
+
+
+Processor type and features
+	--> Preemption Model
+		--> Fully Preemptible Kernel (RT)
+
+Governador de frecuencia Performance
+Power Management and ACPI options
+	--> CPU Frequency scaling
+		--> Default CPUFreq governor (performance)
+BUS ptions (PCI etc)
+	--> Default ASPM policy
+
+Tickless
+General support
+	--> Timers support
+		--> Timer tick handling
+		--> Full dynticks system on all CPUs by default (except CPU 0)
+
+Bootup logo
+Device Drivers
+	--> Graphics support
+		--> Bootup logo
+
+
+
+--------------------------------------------------------------------------------------------------------------
+make -j 6			<-- construcción del código objeto
+make dep
+make bzImage			<-- lz para performance en descompresión de imagenes
+sudo make modules_install	<--
+make install            	<--
+
+
+
+  175  make install
+  176  exit
+  177  grub2-mkconfig
+  178  grub2-mkconfig > /boot/grub2/grub.cfg
+  179  make modules_install
+  180  make install
+  181  grub2-mkconfig
+  182  uname -a
+  183  grub2-mkconfig > /boot/grub2/grub.cfg
+  184  exit
+
+
+
+
+1000  cd Descargas/
+ 1001  ls
+ 1002  man gzip
+ 1003  ls
+ 1004  mv linux-4.1.15.tar.gz ../Documentos/Intel-BUAP/LinuxKernel/
+ 1005  ls
+ 1006  mv patch-4.1.15-rt17.patch.gz ../Documentos/Intel-BUAP/LinuxKernel/
+ 1007  cd ../Documentos/Intel-BUAP/LinuxKernel/
+ 1008  ls
+ 1009  gunzip linux-4.1.15.tar.gz 
+ 1010  ls
+ 1011  man gzip 
+ 1012  man tar
+ 1013  tar -x linux-4.1.15.tar 
+ 1014  tar -x -f linux-4.1.15.tar 
+ 1015  ls
+ 1016  cd linux-4.1.15/
+ 1017  ls
+ 1018  ls -a .config
+ 1019  make nconfig
+ 1020  ls
+ 1021  cd ..
+ 1022  ls
+ 1023  gunzip patch-4.1.15-rt17.patch.gz 
+ 1024  ls
+ 1025  patch -p1 < patch-4.1.15-rt17.patch 
+ 1026  ls
+ 1027  mv patch-4.1.15-rt17.patch linux-4.1.15
+ 1028  ls
+ 1029  cd linux-4.1.15/
+ 1030  ls
+ 1031  patch -p1 < patch-4.1.15-rt17.patch 
+ 1032  make nconfig
+ 1033  make -j 6
+ 1034  du -hs .
+ 1035  make bzimage
+ 1036  make modules_install
+ 1037  su
+ 1038  grub2-mkconfig
+ 1039  su
+ 1040  history | tail -20
+ 1041  history | tail -30
+ 1042  history | tail -50
+
