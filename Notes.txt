@@ -722,3 +722,41 @@ make install            	<--
  1041  history | tail -30
  1042  history | tail -50
 
+
+
+
+
+http://algo.ing.unimo.it/people/paolo/disk_sched/sources.php
+******************************************************
+Enable the block layer
+	--> IO Schedulers
+		BFQ I/O Scheduler
+		BFQ hierarchical scheduling support
+		--> Default I/O scheduler (BFQ)
+******************************************************
+[intel@localhost linux-4.4]$ du -hs .
+725M	.
+
+[intel@localhost linux-4.4]$ du -hs .
+878M	.
+[intel@localhost linux-4.4]$ 
+
+
+
+http://ck.kolivas.org/patches/bfs/
+******************************************************
+General Setup
+	BFS cpu scheduler
+******************************************************
+[intel@localhost linux-4.3.4]$ du -hs .
+703M	.
+
+[intel@localhost linux-4.3.4]$ du -hs .
+732M	.
+[intel@localhost linux-4.3.4]$ 
+
+
+
+tlv sistemas perativos
+
+
