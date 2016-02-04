@@ -226,3 +226,28 @@ Transportabilidad (Recompilar)
    POSIX
 
 
+Sincronizar Procesos
+--------------------
+Algoritmo de Dekker
+Algoritmo de Peterson
+
+Monitor
+Semaforo
+Mutex
+
+
+Comunicación:
+Zonas de memoria compartida
+
+Performance:
+Hilos
+**Servidor Web
+
+lenguaje C --> lpthreads
+
+
+
+gcc -lm -lpthread pthread02.c -o pthread02
+
+
+

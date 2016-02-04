@@ -760,3 +760,26 @@ General Setup
 tlv sistemas perativos
 
 
+
+
+
+[intel@localhost linux-4.4]$ make bzImage
+  CHK     include/config/kernel.release
+  CHK     include/generated/uapi/linux/version.h
+  CHK     include/generated/utsrelease.h
+  CHK     include/generated/bounds.h
+  CHK     include/generated/timeconst.h
+  CHK     include/generated/asm-offsets.h
+  CALL    scripts/checksyscalls.sh
+  CHK     include/generated/compile.h
+  CHK     include/generated/uapi/linux/version.h
+  TEST    posttest
+Succeed: decoded and checked 2031202 instructions
+  TEST    posttest
+arch/x86/tools/insn_sanity: Success: decoded and checked 1000000 random instructions with 0 errors (seed:0xdeeabbd0)
+Kernel: arch/x86/boot/bzImage is ready  (#1)
+[intel@localhost linux-4.4]$ 
+
+
+
+
