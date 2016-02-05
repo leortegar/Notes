@@ -790,4 +790,10 @@ Dispositivos modo carácter (row devices)
 
 
 
+Particiones
+***************************
+MVR GPT
+EFI
 
+
+BIOS -- Real mode
