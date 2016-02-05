@@ -783,3 +783,11 @@ Kernel: arch/x86/boot/bzImage is ready  (#1)
 
 
 
+Manejadores de dsipositivs --- protocolo de comunicaciń (handshake) entre el kernel y los perifericos
+
+Dispositivos modo bloque (block devices)
+Dispositivos modo carácter (row devices)
+
+
+
+
