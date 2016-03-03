@@ -1,0 +1,52 @@
+Cnsideraciones de Rendimiento
+(performance)
+
+-OVERHEAD: Tiempo de CPU para colocar un paquete en el "cable"
+-TROUGHPUT: Máximo número de bytes or segundo. Depende de la "velocidad en el cable" pero también está limitada por RUTEADORES LENTOS (Routing Delax) o por congestión en los ruteadores.
+-LATENCY: Tiempo que transcurre hasta que el primer bit de un paquete llega al receptor.
+
+
+REVISIÓN DE ALGUNOS ASPECTOS DE TCP
+.Divide mensajes en segmentos (PDU - segment)
+.Los reensamba en la estación destino
+.Reenvia cualquier mensaje que no se haya recibido
+.Reensambla mensajes a partir de los segmentos
+
+NÚMERO DE PUERTO TCP, UDP
+Tanto TCP como UDP utilizan números de Puertos
+-SOCKETS para envíar información a las capas superiores
+Los números de puertos se emplean para mantener un registro de las disitintas conversaciones que mantienen ls hosts al mismo tiempo.
+Los diseñadores y programadores de software han aceptado usar los NUMEROS CONOCIDOS (Well-Known-Ports)
+Ejemplo:
+FTP: - 20,21 (datos y control)
+HTPP: 80
+Telnet: 23
+SMTP: 25
+
+0 - 1024
+1024 - 49151 Puertos registrados (registro de terceros)
+
+
+
+
+ethtool -S enp1s0
+ethtool -i enp1s0
+
+ethtool -s enp1s0 speed 100 duplex full 
+
+
+
+
+cat /etc/sysconfig/network-scripts/ifcfg-enp1s0
+
+el script que inicia el archivo en network-scripts es /etc/init.d/network
+
+
+#service network stop
+#service network start
+#service network restart
+#service network status
+
+Para configurar las conexiones de red después de bootear con el comando
+#chkconfig network on
+arranca los servicios como si fuera al tiempo de boot
