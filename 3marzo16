@@ -1,0 +1,23 @@
+dnf update
+
+git clone git://git.gnome.org/jhbuild
+dnf install redhat-rpm-config
+
+sudo dnf install @c-develoment @development-tools gnome-common pygobject2 dbus-python
+
+
+
+./autogen.sh
+make
+makeinstall
+
+
+jhbuild sysdeps --install
+
+.local/bin/jhbuild build evince
+
+
+
+sudo .local/bin/
+dependencias de construcciń de tdo un grupo
+

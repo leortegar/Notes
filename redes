@@ -50,3 +50,53 @@ el script que inicia el archivo en network-scripts es /etc/init.d/network
 Para configurar las conexiones de red después de bootear con el comando
 #chkconfig network on
 arranca los servicios como si fuera al tiempo de boot
+
+
+
+
+#ifdown enp1s0
+#ifup enps10
+#ifconfig enp1s0
+#ifconfig -a
+
+Alternativamente puedo emplear un comando mas reciente y opciones diversas
+
+#ip addr show enp1s0
+#ip a
+#ip help
+#ip addr help
+#ip route help
+#ip tunnel help
+
+
+$ lspci
+$ iwconfig
+
+# iwconfig nombre_interfaz essid "Mi_red_inalambrica"
+
+# iwconfig nombre_interfaz channel 3 set channel 3
+<< 802.11b >>
+
+# iwconfig nombre_interfaz mode Ad-hoc
+# iwconfig nombre_interfaz ap anx
+# iwconfig nombre_interfaz sens -50
+
+$ ipcalc <-- calcula mascaras, direcciones de red, direcciones de broadcast
+$ ipcalc -bmn  192.168.1.100/27    VLSM
+
+
+
+El sistema de Nombres de Dominio (DNS)
+
+Las direcciones de Internet son mapeadas a nombres simbolicos con un formato tipo:
+<computer-name><subdomain-hierarchy><organization>{<country-code>}
+Ejemplo: www.alfa.buap.edu.mx
+
+
+
+
+
+
+
+
+
