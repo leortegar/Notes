@@ -21,3 +21,26 @@ jhbuild sysdeps --install
 sudo .local/bin/
 dependencias de construcciń de tdo un grupo
 
+
+EFI
+Servicios de arranque
+Servicios de ejecución
+
+MBR
+2.2 TB
+4 parts
+
+GPT
+128 partitions
+8 ZB
+
+
+
+bloques  de 512 bytes, sectores
+
+SSD 
+sectores de 4k
+
+
+
+
